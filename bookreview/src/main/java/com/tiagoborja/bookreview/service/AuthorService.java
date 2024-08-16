@@ -8,7 +8,6 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class AuthorService {
@@ -30,6 +29,7 @@ public class AuthorService {
     }
 
     public Author updateAuthor(Long id, Author authorDetails) {
+
         Author author = authorRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Author not found"));
 
@@ -40,9 +40,10 @@ public class AuthorService {
     }
 
     public void deleteAuthor(Long id) {
-        if (!authorRepository.existsById(id)) {
+
+        if (!authorRepository.existsById(id))
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Author not found");
-        }
+
         authorRepository.deleteById(id);
     }
 }
