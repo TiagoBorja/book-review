@@ -1,5 +1,7 @@
 package com.tiagoborja.bookreview.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -30,6 +32,7 @@ public class Book {
     @JsonProperty("author_id")
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
+    @JsonManagedReference
     private Author author;
 
     @JsonProperty("publication_year")
@@ -51,5 +54,6 @@ public class Book {
     private Date updatedAt;
 
     @OneToMany(mappedBy = "book")
+    @JsonManagedReference
     private List<Review> reviews;
 }
