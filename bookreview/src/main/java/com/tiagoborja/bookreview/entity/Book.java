@@ -1,5 +1,6 @@
 package com.tiagoborja.bookreview.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,16 +23,20 @@ public class Book {
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
+    @JsonProperty("title")
     @Column(name = "title", nullable = false)
     private String title;
 
+    @JsonProperty("author_id")
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     private Author author;
 
+    @JsonProperty("publication_year")
     @Column(name = "publication_year", nullable = false)
     private int publicationYear;
 
+    @JsonProperty("isbn")
     @Column(name = "isbn", nullable = false, unique = true)
     private String isbn;
 
