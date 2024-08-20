@@ -29,7 +29,7 @@ public class Book {
     @Column(name = "title", nullable = false)
     private String title;
 
-    @JsonProperty("author_id")
+    @JsonProperty("author")
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
     @JsonManagedReference
