@@ -20,7 +20,7 @@ public class BookService {
     @Autowired
     AuthorRepository authorRepository;
 
-    public List<Book> getAllBooks(Book book) {
+    public List<Book> getAllBooks() {
         return bookRepository.findAll();
     }
 
