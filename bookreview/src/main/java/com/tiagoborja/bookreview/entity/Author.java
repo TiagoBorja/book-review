@@ -1,6 +1,6 @@
 package com.tiagoborja.bookreview.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -40,6 +40,6 @@ public class Author {
     private Date updatedAt;
 
     @OneToMany(mappedBy = "author")
-    @JsonBackReference
+    @JsonIgnore  // Correto se você não quer que JPA persista isso
     private List<Book> books;
 }

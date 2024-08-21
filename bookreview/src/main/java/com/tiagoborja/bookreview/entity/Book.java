@@ -1,6 +1,7 @@
 package com.tiagoborja.bookreview.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
@@ -32,7 +33,6 @@ public class Book {
     @JsonProperty("author")
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
-    @JsonManagedReference
     private Author author;
 
     @JsonProperty("publication_year")
@@ -54,6 +54,6 @@ public class Book {
     private Date updatedAt;
 
     @OneToMany(mappedBy = "book")
-    @JsonManagedReference
+    @JsonIgnore  // Correto se você não quer que JPA persista isso
     private List<Review> reviews;
 }
