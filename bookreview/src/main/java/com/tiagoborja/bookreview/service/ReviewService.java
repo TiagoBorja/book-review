@@ -34,31 +34,26 @@ public class ReviewService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    public Review createReview(Review review) {
+    public Review createReview(Long bookId, Long userId, Review review) {
+        Book book = bookRepository.findById(bookId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not found"));
+
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+        review.setBook(book);
+        review.setUser(user);
         return reviewRepository.save(review);
     }
 
-    public Review updateReview(Long reviewId,
-                               Long bookId,
-                               Long userId,
-                               Review reviewDetails) {
+    public Review updateReview(Long reviewId, Review reviewDetails) {
+        Review existingReview = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found"));
 
-        Review review = reviewRepository.findById(reviewId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        existingReview.setRating(reviewDetails.getRating());
+        existingReview.setComment(reviewDetails.getComment());
 
-        Book book = bookRepository.findById(bookId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-
-
-        review.setUser(user);
-        review.setBook(book);
-        review.setRating(reviewDetails.getRating());
-        review.setComment(reviewDetails.getComment());
-
-        return reviewRepository.save(review);
+        return reviewRepository.save(existingReview);
     }
 
     public void deleteReview(Long reviewId){
