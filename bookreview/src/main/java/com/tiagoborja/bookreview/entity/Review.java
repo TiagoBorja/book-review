@@ -1,5 +1,6 @@
 package com.tiagoborja.bookreview.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -28,7 +29,7 @@ public class Review {
     private User user;
 
     @ManyToOne
-    @JsonIgnore
+    @JsonBackReference
     @JoinColumn(name = "book_id", nullable = false)
     private Book book;
 
@@ -48,7 +49,4 @@ public class Review {
     @Column(name = "updated_at", nullable = false)
     private Date updatedAt;
 
-    @OneToMany(mappedBy = "review")
-    @JsonIgnore
-    private List<ReviewComment> reviewComments;
 }

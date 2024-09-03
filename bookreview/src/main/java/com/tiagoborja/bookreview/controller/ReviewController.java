@@ -18,36 +18,33 @@ public class ReviewController {
     ReviewService reviewService;
 
     @GetMapping
-    public ResponseEntity<List<Review>> getAllUsers() {
+    public ResponseEntity<List<Review>> getAllReviews() {
 
         List<Review> reviews = reviewService.getAllReviews();
         return new ResponseEntity<>(reviews, HttpStatus.OK);
     }
 
-    @GetMapping("/id/{reviewId}")
-    public ResponseEntity<Review> getUserById(@PathVariable("reviewId") Long reviewId) {
+    @GetMapping("/{reviewId}")
+    public ResponseEntity<Review> getReviewById(@PathVariable("reviewId") Long reviewId) {
 
         Review review = reviewService.getReviewById(reviewId);
         return new ResponseEntity<>(review, HttpStatus.OK);
     }
 
-    @PostMapping("/book/{bookId}/user/{userId}")
-    public ResponseEntity<Review> createReview(@PathVariable("bookId") Long bookId,
-                                               @PathVariable("userId") Long userId,
-                                               @RequestBody Review review) {
-        Review createdReview = reviewService.createReview(bookId, userId, review);
+    @PostMapping
+    public ResponseEntity<Review> createReview(@RequestBody Review review) {
+        Review createdReview = reviewService.createReview(review);
         return new ResponseEntity<>(createdReview, HttpStatus.CREATED);
     }
 
-    @PutMapping("/id/{reviewId}/book/{bookId}/user/{userId}")
-    public ResponseEntity<Review> updateReview(@PathVariable("reviewId") Long reviewId,
-                                               @RequestBody Review review) {
+    @PutMapping
+    public ResponseEntity<Review> updateReview(@RequestBody Review review) {
 
-        Review updatedReview = reviewService.updateReview(reviewId, review);
+        Review updatedReview = reviewService.updateReview(review);
         return new ResponseEntity<>(updatedReview, HttpStatus.OK);
     }
 
-    @DeleteMapping("/id/{reviewId}")
+    @DeleteMapping("/{reviewId}")
     public ResponseEntity<Void> deleteBook(@PathVariable("reviewId") Long reviewId) {
         reviewService.deleteReview(reviewId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);

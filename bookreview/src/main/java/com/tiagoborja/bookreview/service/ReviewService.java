@@ -34,11 +34,11 @@ public class ReviewService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    public Review createReview(Long bookId, Long userId, Review review) {
-        Book book = bookRepository.findById(bookId)
+    public Review createReview(Review review) {
+        Book book = bookRepository.findById(review.getBook().getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not found"));
 
-        User user = userRepository.findById(userId)
+        User user = userRepository.findById(review.getUser().getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
 
         review.setBook(book);
@@ -46,8 +46,8 @@ public class ReviewService {
         return reviewRepository.save(review);
     }
 
-    public Review updateReview(Long reviewId, Review reviewDetails) {
-        Review existingReview = reviewRepository.findById(reviewId)
+    public Review updateReview(Review reviewDetails) {
+        Review existingReview = reviewRepository.findById(reviewDetails.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Review not found"));
 
         existingReview.setRating(reviewDetails.getRating());

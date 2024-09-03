@@ -40,6 +40,5 @@ public class Author {
     private Date updatedAt;
 
     @OneToMany(mappedBy = "author")
-    @JsonIgnore  // Correto se você não quer que JPA persista isso
     private List<Book> books;
 }
