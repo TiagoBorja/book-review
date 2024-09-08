@@ -1,4 +1,4 @@
-package com.tiagoborja.bookreview.entity;
+package com.tiagoborja.bookreview.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;

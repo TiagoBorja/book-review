@@ -1,7 +1,5 @@
-package com.tiagoborja.bookreview.entity;
+package com.tiagoborja.bookreview.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -13,31 +11,22 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "reviews")
+@Table(name = "authors")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Review {
+public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id", nullable = false)
-    private User user;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    @ManyToOne
-    @JsonBackReference
-    @JoinColumn(name = "book_id", nullable = false)
-    private Book book;
-
-    @Column(name = "rating", nullable = false)
-    private int rating;
-
-    @Column(name = "comment", columnDefinition = "TEXT")
-    private String comment;
+    @Column(name = "bio", columnDefinition = "TEXT")
+    private String bio;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -49,4 +38,6 @@ public class Review {
     @Column(name = "updated_at", nullable = false)
     private Date updatedAt;
 
+    @OneToMany(mappedBy = "author")
+    private List<Book> books;
 }

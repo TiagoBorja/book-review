@@ -1,6 +1,6 @@
 package com.tiagoborja.bookreview.controller;
 
-import com.tiagoborja.bookreview.entity.Book;
+import com.tiagoborja.bookreview.model.entity.Book;
 import com.tiagoborja.bookreview.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

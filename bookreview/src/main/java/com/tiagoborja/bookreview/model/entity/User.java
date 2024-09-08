@@ -1,6 +1,6 @@
-package com.tiagoborja.bookreview.entity;
+package com.tiagoborja.bookreview.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,25 +9,28 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.util.Date;
-import java.util.List;
 
 @Entity
-@Table(name = "authors")
+@Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Author {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "name", nullable = false)
-    private String name;
+    @Column(name = "username", length = 40, nullable = false)
+    private String username;
 
-    @Column(name = "bio", columnDefinition = "TEXT")
-    private String bio;
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(name = "password", nullable = false)
+    private String password;
+
+    @Column(name = "email", length = 140, nullable = false, unique = true)
+    private String email;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
@@ -39,6 +42,4 @@ public class Author {
     @Column(name = "updated_at", nullable = false)
     private Date updatedAt;
 
-    @OneToMany(mappedBy = "author")
-    private List<Book> books;
 }

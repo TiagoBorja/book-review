@@ -1,6 +1,6 @@
 package com.tiagoborja.bookreview.repository;
 
-import com.tiagoborja.bookreview.entity.User;
+import com.tiagoborja.bookreview.model.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

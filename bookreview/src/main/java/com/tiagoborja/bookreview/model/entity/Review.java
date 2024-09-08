@@ -1,6 +1,6 @@
-package com.tiagoborja.bookreview.entity;
+package com.tiagoborja.bookreview.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,26 +11,31 @@ import org.hibernate.annotations.UpdateTimestamp;
 import java.util.Date;
 
 @Entity
-@Table(name = "users")
+@Table(name = "reviews")
 @Getter
 @Setter
 @NoArgsConstructor
-public class User {
+public class Review {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, unique = true)
     private Long id;
 
-    @Column(name = "username", length = 40, nullable = false)
-    private String username;
+    @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(name = "password", nullable = false)
-    private String password;
+    @ManyToOne
+    @JsonBackReference
+    @JoinColumn(name = "book_id", nullable = false)
+    private Book book;
 
-    @Column(name = "email", length = 140, nullable = false, unique = true)
-    private String email;
+    @Column(name = "rating", nullable = false)
+    private int rating;
+
+    @Column(name = "comment", columnDefinition = "TEXT")
+    private String comment;
 
     @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)

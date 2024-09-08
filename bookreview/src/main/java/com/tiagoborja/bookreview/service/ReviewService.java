@@ -1,8 +1,8 @@
 package com.tiagoborja.bookreview.service;
 
-import com.tiagoborja.bookreview.entity.Book;
-import com.tiagoborja.bookreview.entity.Review;
-import com.tiagoborja.bookreview.entity.User;
+import com.tiagoborja.bookreview.model.entity.Book;
+import com.tiagoborja.bookreview.model.entity.Review;
+import com.tiagoborja.bookreview.model.entity.User;
 import com.tiagoborja.bookreview.repository.BookRepository;
 import com.tiagoborja.bookreview.repository.ReviewRepository;
 import com.tiagoborja.bookreview.repository.UserRepository;

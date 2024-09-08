@@ -1,7 +1,7 @@
 package com.tiagoborja.bookreview.service;
 
-import com.tiagoborja.bookreview.entity.Author;
-import com.tiagoborja.bookreview.entity.Book;
+import com.tiagoborja.bookreview.model.entity.Author;
+import com.tiagoborja.bookreview.model.entity.Book;
 import com.tiagoborja.bookreview.repository.AuthorRepository;
 import com.tiagoborja.bookreview.repository.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
