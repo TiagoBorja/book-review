@@ -1,5 +1,6 @@
 package com.tiagoborja.bookreview.controller;
 
+import com.tiagoborja.bookreview.model.dto.ReviewDTO;
 import com.tiagoborja.bookreview.model.entity.Review;
 import com.tiagoborja.bookreview.service.ReviewService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,10 +32,11 @@ public class ReviewController {
     }
 
     @PostMapping
-    public ResponseEntity<Review> createReview(@RequestBody Review review) {
-        Review createdReview = reviewService.createReview(review);
+    public ResponseEntity<Review> createReview(@RequestBody ReviewDTO reviewDTO) {
+        Review createdReview = reviewService.createReview(reviewDTO);
         return new ResponseEntity<>(createdReview, HttpStatus.CREATED);
     }
+
 
     @PutMapping
     public ResponseEntity<Review> updateReview(@RequestBody Review review) {
