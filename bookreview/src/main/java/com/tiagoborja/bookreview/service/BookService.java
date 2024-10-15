@@ -1,5 +1,6 @@
 package com.tiagoborja.bookreview.service;
 
+import com.tiagoborja.bookreview.model.dto.BookDTO;
 import com.tiagoborja.bookreview.model.entity.Author;
 import com.tiagoborja.bookreview.model.entity.Book;
 import com.tiagoborja.bookreview.repository.AuthorRepository;
@@ -29,31 +30,35 @@ public class BookService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    public Book createBook(Long authorId, Book book) {
+    public Book createBook(BookDTO bookDTO) {
 
-        Author author = authorRepository.findById(authorId)
+        Author existingAuthor = authorRepository.findById(bookDTO.getAuthorId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Author not found"));
 
-        book.setAuthor(author);
+        Book book = new Book();
+        book.setTitle(bookDTO.getTitle());
+        book.setIsbn(bookDTO.getIsbn());
+        book.setPublicationYear(bookDTO.getPublicationYear());
+        book.setAuthor(existingAuthor);
         return bookRepository.save(book);
     }
 
-    public Book updateBook(Long id,
-                           Long authorId,
-                           Book bookDetails) {
+    public Book updateBook(BookDTO bookDTO) {
 
-        Book book = bookRepository.findById(id)
+        Book existingBook = bookRepository.findById(bookDTO.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
-        Author author = authorRepository.findById(authorId)
+        Author authorId = authorRepository.findById(bookDTO.getAuthorId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Author not found"));
 
-        book.setTitle(bookDetails.getTitle());
-        book.setPublicationYear(bookDetails.getPublicationYear());
-        book.setIsbn(bookDetails.getIsbn());
-        book.setAuthor(author);
 
-        return bookRepository.save(book);
+        existingBook.setId(bookDTO.getId());
+        existingBook.setTitle(bookDTO.getTitle());
+        existingBook.setPublicationYear(bookDTO.getPublicationYear());
+        existingBook.setIsbn(bookDTO.getIsbn());
+        existingBook.setAuthor(authorId);
+
+        return bookRepository.save(existingBook);
     }
 
     public void deleteBook(Long id) {

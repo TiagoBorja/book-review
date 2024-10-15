@@ -1,5 +1,6 @@
 package com.tiagoborja.bookreview.service;
 
+import com.tiagoborja.bookreview.model.dto.AuthorDTO;
 import com.tiagoborja.bookreview.model.entity.Author;
 import com.tiagoborja.bookreview.repository.AuthorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,19 +25,22 @@ public class AuthorService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Author not found"));
     }
 
-    public Author createAuthor(Author author) {
+    public Author createAuthor(AuthorDTO authorDTO) {
+        Author author = new Author();
+        author.setName(authorDTO.getName());
+        author.setBio(authorDTO.getBio());
         return authorRepository.save(author);
     }
 
-    public Author updateAuthor(Long id, Author authorDetails) {
+    public Author updateAuthor(AuthorDTO authorDTO) {
 
-        Author author = authorRepository.findById(id)
+        Author existingAuthor = authorRepository.findById(authorDTO.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Author not found"));
 
-        author.setName(authorDetails.getName());
-        author.setBio(authorDetails.getBio());
+        existingAuthor.setName(authorDTO.getName());
+        existingAuthor.setBio(authorDTO.getBio());
 
-        return authorRepository.save(author);
+        return authorRepository.save(existingAuthor);
     }
 
     public void deleteAuthor(Long id) {

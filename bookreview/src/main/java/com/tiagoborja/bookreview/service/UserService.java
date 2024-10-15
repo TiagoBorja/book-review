@@ -1,5 +1,6 @@
 package com.tiagoborja.bookreview.service;
 
+import com.tiagoborja.bookreview.model.dto.UserDTO;
 import com.tiagoborja.bookreview.model.entity.User;
 import com.tiagoborja.bookreview.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,23 +29,27 @@ public class UserService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
-    public User createUser(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+    public User createUser(UserDTO userDTO) {
+        User user = new User();
+        user.setName(userDTO.getName());
+        user.setUsername(userDTO.getUsername());
+        user.setEmail(userDTO.getEmail());
+        user.setPassword(passwordEncoder.encode(userDTO.getPassword()));
         return userRepository.save(user);
     }
 
-    public User updateUser(Long id, User userDetails) {
+    public User updateUser(UserDTO userDTO) {
 
-        User user = userRepository.findById(id)
+        User existingUser = userRepository.findById(userDTO.getId())
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
 
 
-        user.setName(user.getName());
-        user.setUsername(user.getUsername());
-        user.setEmail(user.getEmail());
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        existingUser.setName(userDTO.getName());
+        existingUser.setUsername(userDTO.getUsername());
+        existingUser.setEmail(userDTO.getEmail());
+        existingUser.setPassword(passwordEncoder.encode(userDTO.getPassword()));
 
-        return userRepository.save(user);
+        return userRepository.save(existingUser);
     }
 
     public void deleteUser(Long userId) {

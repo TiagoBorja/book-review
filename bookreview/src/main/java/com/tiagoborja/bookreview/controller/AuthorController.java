@@ -1,5 +1,6 @@
 package com.tiagoborja.bookreview.controller;
 
+import com.tiagoborja.bookreview.model.dto.AuthorDTO;
 import com.tiagoborja.bookreview.model.entity.Author;
 import com.tiagoborja.bookreview.service.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +23,21 @@ public class AuthorController {
         return new ResponseEntity<>(authors, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<Author> getAuthorById(@PathVariable("id") Long id) {
         Author author = authorService.getAuthorById(id);
         return new ResponseEntity<>(author, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Author> createAuthor(@RequestBody Author author) {
-        Author createdAuthor = authorService.createAuthor(author);
+    public ResponseEntity<Author> createAuthor(@RequestBody AuthorDTO authorDTO) {
+        Author createdAuthor = authorService.createAuthor(authorDTO);
         return new ResponseEntity<>(createdAuthor, HttpStatus.CREATED);
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Author> updateAuthor(@PathVariable("id") Long id, @RequestBody Author authorDetails) {
-        Author updatedAuthor = authorService.updateAuthor(id, authorDetails);
+    @PutMapping
+    public ResponseEntity<Author> updateAuthor(@RequestBody AuthorDTO authorDTO) {
+        Author updatedAuthor = authorService.updateAuthor(authorDTO);
         return new ResponseEntity<>(updatedAuthor, HttpStatus.OK);
     }
 

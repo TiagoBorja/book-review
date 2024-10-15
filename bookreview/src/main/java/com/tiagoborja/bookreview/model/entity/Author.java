@@ -1,5 +1,6 @@
 package com.tiagoborja.bookreview.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,5 +40,6 @@ public class Author {
     private Date updatedAt;
 
     @OneToMany(mappedBy = "author")
+    @JsonBackReference
     private List<Book> books;
 }

@@ -32,7 +32,7 @@ public class Book {
     @JsonProperty("author")
     @ManyToOne
     @JoinColumn(name = "author_id", nullable = false)
-    @JsonIgnore
+    @JsonManagedReference
     private Author author;
 
     @JsonProperty("publication_year")

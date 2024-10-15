@@ -1,5 +1,6 @@
 package com.tiagoborja.bookreview.controller;
 
+import com.tiagoborja.bookreview.model.dto.UserDTO;
 import com.tiagoborja.bookreview.model.entity.User;
 import com.tiagoborja.bookreview.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,28 +21,24 @@ public class UserController {
     @GetMapping
     public ResponseEntity<List<User>> getAllUsers() {
         List<User> users = userService.getAllUsers();
-
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
     @GetMapping("/id/{userId}")
     public ResponseEntity<User> getUserById(@PathVariable("userId") Long userId) {
         User user = userService.getUserById(userId);
-
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
-        User createdUser = userService.createUser(user);
+    public ResponseEntity<User> createUser(@RequestBody UserDTO userDTO) {
+        User createdUser = userService.createUser(userDTO);
         return new ResponseEntity<>(createdUser, HttpStatus.CREATED);
     }
 
-    @PutMapping("/id/{userId}")
-    public ResponseEntity<User> updateUser(@PathVariable("userId") Long userId, @RequestBody User user) {
-
-        User updatedUser = userService.updateUser(userId, user);
-
+    @PutMapping
+    public ResponseEntity<User> updateUser(@RequestBody UserDTO userDTO) {
+        User updatedUser = userService.updateUser(userDTO);
         return new ResponseEntity<>(updatedUser, HttpStatus.OK);
     }
 
